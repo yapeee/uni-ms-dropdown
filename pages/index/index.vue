@@ -18,8 +18,8 @@
 </template>
 
 <script>
-	import msDropdownMenu from '@/components/dropdown-select/dropdown-menu.vue'
-	import msDropdownItem from '@/components/dropdown-select/dropdown-item.vue'
+	import msDropdownMenu from '@/components/ms-dropdown/dropdown-menu.vue'
+	import msDropdownItem from '@/components/ms-dropdown/dropdown-item.vue'
 	export default {
 		components: {
 			msDropdownMenu,
@@ -45,9 +45,7 @@
 				],
 				value1: 0,
 				value2: 1,
-				value3: {
-					name: 'init'
-				}
+				value3: 'init'
 			}
 		},
 		watch: {
@@ -57,10 +55,7 @@
 		methods: {
 			choose() {
 				let obj = {
-					value: {
-						test: 1,
-						name: 'test'
-					}
+					value: 'test'
 				}
 				this.$refs.dropdownItem.choose(obj)
 			},
