@@ -3,17 +3,21 @@
 		<!-- selected -->
 		<view class="dropdown-item__selected" 
 			  @click="changePopup">
-			<view class="selected__name">{{hasSlot ? title : selectItem.text}}</view>
-			<view class="selected__icon"
-				  :class="showClass === 'show'? 'up' : 'down'"
-			>
-				<span class="iconfont">&#xe851;</span>
-			</view>
+			<slot name="title" v-if="$slots.title"></slot>
+			<block v-else>
+				<view class="selected__name">{{title ? title : selectItem.text}}</view>
+				<view class="selected__icon"
+					  :class="showClass === 'show'? 'up' : 'down'"
+				>
+					<span class="iconfont">&#xe851;</span>
+				</view>
+			</block>
 		</view>
 		<view class="dropdown-item__content" :style="{top: contentTop + 'px'}" v-if="showList">
 			<!-- dropdown -->
 			<view :class="['list', showClass]">
-				<block v-if="!hasSlot">
+				<slot v-if="$slots.default"></slot>
+				<block v-else>
 					<view class="list__option"
 						  v-for="(item, index) in list"
 						  :key="index"
@@ -21,9 +25,6 @@
 						<view>{{item.text}}</view>
 						<icon v-if="item.value === value" type="success_no_circle" size="26"/>	
 					</view>
-				</block>
-				<block v-else>
-					<slot></slot>
 				</block>
 			</view>	
 			<!-- dropdown-mask -->
@@ -43,10 +44,6 @@
 				default: ()=> {
 					return []
 				}
-			},
-			hasSlot: {
-				type: Boolean,
-				default: false
 			},
 			title: [Number, String]
 		},
@@ -135,6 +132,7 @@
 	.dropdown-item {
 		width: 100%;
 		flex:1;
+		position: relative;
 		&__selected {
 			position: relative;
 			display: flex;
@@ -201,6 +199,15 @@
 					background:rgba(0,0,0,0.5);
 				}
 			}
+		}
+		&:not(:last-child):after {
+			content: ' ';
+			position: absolute;
+			width: 2rpx;
+			top: 36rpx;
+			bottom: 36rpx;
+			right: 0;
+			background: $uni-border-color;
 		}
 	}
 </style>

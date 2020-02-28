@@ -2,7 +2,15 @@
 	<view>
 		<ms-dropdown-menu>
 			<ms-dropdown-item v-model="value1" :list="list"></ms-dropdown-item>
-			<ms-dropdown-item v-model="value2" :list="list"></ms-dropdown-item>
+			<!-- <ms-dropdown-item v-model="value2" :list="list"></ms-dropdown-item> -->
+			<ms-dropdown-item v-model="value2" :list="list">
+				<view slot="title">
+					<view class="dropdown-item-title">
+						<view class="title">自定义title</view>
+						<view class="btn">打开</view>
+					</view>
+				</view>
+			</ms-dropdown-item>
 			<ms-dropdown-item v-model="value3" :hasSlot="true" title="自定义下拉框内容" ref="dropdownItem">
 				<view class="dropdown-item-content">
 					<view>=====此为测试内容=====</view>
@@ -78,4 +86,20 @@
 			border-radius: 10rpx;
 		}
 	}
+	.dropdown-item-title {
+		display: flex;
+		.title {
+			color: red;
+		}
+		.btn {
+			font-size: 24rpx;
+			background: $uni-color-primary;
+			background: #007aff;
+			color: #fff;
+			padding: 10rpx;
+			display: inline-block;
+			border-radius: 10rpx;
+		}
+	}
+	
 </style>

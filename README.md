@@ -13,7 +13,15 @@
 	<view>
 		<ms-dropdown-menu>
 			<ms-dropdown-item v-model="value1" :list="list"></ms-dropdown-item>
-			<ms-dropdown-item v-model="value2" :list="list"></ms-dropdown-item>
+			<!-- <ms-dropdown-item v-model="value2" :list="list"></ms-dropdown-item> -->
+			<ms-dropdown-item v-model="value2" :list="list">
+				<view slot="title">
+					<view class="dropdown-item-title">
+						<view class="title">自定义title</view>
+						<view class="btn">打开</view>
+					</view>
+				</view>
+			</ms-dropdown-item>
 			<ms-dropdown-item v-model="value3" :hasSlot="true" title="自定义下拉框内容" ref="dropdownItem">
 				<view class="dropdown-item-content">
 					<view>=====此为测试内容=====</view>
@@ -86,7 +94,7 @@
 | ------------ | ----------------------- | ------- | ------------------ |
 | value      | 当前选中项对应的 value，可以通过v-model双向绑定 | number \| String \| Object | -               |
 | list         | 选项数组      | Option[] | []                 |
-| title | 自定义标题 | String  | $uni-color-primary |
+| title | 自定义标题字符串 | String  | $uni-color-primary |
 
 #### Option 数据结构
 
@@ -94,6 +102,13 @@
 | ---- | ----- | --------------------------- |
 | text  | 文字   | string                    |
 | value | 标识符 | string \| number \| Object |
+
+#### DropdownItem Slots
+
+| 名称  | 说明   |
+| ---- | ----- |
+| default  | 菜单内容   |
+| title | 自定义标题 |
 
 ## 方法说明
 通过 ref 获取DropdownItem组件调用方法
