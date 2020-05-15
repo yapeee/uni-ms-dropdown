@@ -1,8 +1,9 @@
 <template>
 	<view>
+		<view style="height: 500px; color: #C0C0C0;"></view>
+		
 		<ms-dropdown-menu>
 			<ms-dropdown-item v-model="value1" :list="list"></ms-dropdown-item>
-			<!-- <ms-dropdown-item v-model="value2" :list="list"></ms-dropdown-item> -->
 			<ms-dropdown-item v-model="value2" :list="list">
 				<view slot="title">
 					<view class="dropdown-item-title">
@@ -11,17 +12,24 @@
 					</view>
 				</view>
 			</ms-dropdown-item>
-			<ms-dropdown-item v-model="value3" :hasSlot="true" title="自定义下拉框内容" ref="dropdownItem">
+			<!-- <ms-dropdown-item v-model="value3" :hasSlot="true" title="自定义下拉框内容" ref="dropdownItem">
 				<view class="dropdown-item-content">
 					<view>=====此为测试内容=====</view>
 					<view class="btn" @click="choose">输出：test</view>
 					<view class="btn" @click="close">关闭</view>
 				</view>
-			</ms-dropdown-item>
+			</ms-dropdown-item> -->
 		</ms-dropdown-menu>
 		<view>输出：{{value1}}</view>
 		<view>输出：{{value2}}</view>
 		<view>输出：{{value3}}</view>
+		
+		<view class="btn" @click="getData()">异步加载数据</view>
+		<ms-dropdown-menu>
+			<ms-dropdown-item v-model="value4" :list="lazyList"></ms-dropdown-item>
+		</ms-dropdown-menu>
+		
+		<view style="height: 500px; color: #C0C0C0;"></view>
 	</view>
 </template>
 
@@ -53,7 +61,9 @@
 				],
 				value1: 0,
 				value2: 1,
-				value3: 'init'
+				value3: 'init',
+				lazyList: [],
+				value4: '',
 			}
 		},
 		watch: {
@@ -69,6 +79,9 @@
 			},
 			close() {
 				this.$refs.dropdownItem.closePopup()
+			},
+			getData() {
+				this.lazyList = this.list
 			}
 		}
 	}

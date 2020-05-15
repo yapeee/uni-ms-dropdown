@@ -21,7 +21,7 @@
 					<view class="list__option"
 						  v-for="(item, index) in list"
 						  :key="index"
-						   @click="choose(item)">
+						  @click="choose(item)">
 						<view>{{item.text}}</view>
 						<icon v-if="item.value === value" type="success_no_circle" size="26"/>	
 					</view>
@@ -29,6 +29,7 @@
 			</view>	
 			<!-- dropdown-mask -->
 			<view :class="['dropdown-mask', showClass]" v-if="showList" @click="closePopup"></view>
+			<!-- <view class="dropdown-mask-all" v-if="showList"></view> -->
 		</view>
 	</div>
 </template>
@@ -59,14 +60,7 @@
 		},
 		mounted() {
 			this.showList = this.active;
-			this.selectItem = this.list[this.value];
-			// document.addEventListener('click', e => {
-			// 	//this.$el 可以获取当前组件的容器节点
-			// 	if (!this.$el.contains(e.target)) {
-			// 		console.log('change');
-			// 		this.close()
-			// 	}
-			// });
+			this.selectItem = this.list[this.value] || {};
 		},
 		methods: {
 			choose(item) {
@@ -106,7 +100,8 @@
 				uni.createSelectorQuery().in(this).selectAll(el).boundingClientRect().exec((data) => {
 					callback(data[0]);
 				});
-			}
+			},
+			moveHandle(){}
 		}
 	}
 </script>
@@ -170,7 +165,7 @@
 				position: absolute;
 				left: 0;
 				right: 0;
-				z-index: 3;
+				z-index: 1000;
 				background: #fff;
 				transform: translateY(-100%);
 				transition: all .3s;
@@ -194,11 +189,19 @@
 				top: 0;
 				bottom: 0;
 				transition: all .3s;
-				z-index: 2;
+				z-index: 999;
 				&.show {
 					background:rgba(0,0,0,0.5);
 				}
 			}
+		}
+		.dropdown-mask-all {
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: 998;
 		}
 		&:not(:last-child):after {
 			content: ' ';
